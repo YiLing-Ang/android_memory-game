@@ -20,6 +20,13 @@
             android:name=".MemoryGame"
             android:exported="false" />
         <activity
+            android:name=".GameActivity"
+            android:exported="false" />
+        <service
+            android:name=".MusicService"
+            android:enabled="true"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

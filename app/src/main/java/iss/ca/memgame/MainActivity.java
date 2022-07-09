@@ -131,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
                                             public void onClick(View view) {
                                                 if (sixImages.size() == 6) {
                                                     System.out.println("start intent");
-                                                    Intent intent = new Intent(MainActivity.this, MemoryGame.class);
+
+                                                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
+
                                                     intent.putExtra("imgList", sixImages);
                                                     startActivity(intent);
 
@@ -174,4 +176,13 @@ public class MainActivity extends AppCompatActivity {
         String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
         return result;
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intentMusic = new Intent(MainActivity.this, iss.ca.memgame.MusicService.class);
+        intentMusic.putExtra("class","main");
+        startService(intentMusic);
+    }
+
 }
