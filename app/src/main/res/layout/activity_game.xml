@@ -15,18 +15,29 @@
             android:id="@+id/txtNumOfMatches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:text="0 out of 6 matches"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp" />
 
-            android:textSize="30sp"
-            />
         <TextView
             android:id="@+id/txtTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-
-            android:textSize="30sp"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="15dp"
+            android:text="runtime"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tv_p1"
@@ -63,4 +74,4 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"/>
 
-    </RelativeLayout>
+</RelativeLayout>
