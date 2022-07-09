@@ -73,12 +73,14 @@ public class MemoryGame extends AppCompatActivity {
 
                         //taking advantage of simple naming convention of ImageView to allow for looping
                         ImageView img = findViewById(r.getIdentifier("img" + i, "id", name));
+                        ImageView img1 = findViewById(r.getIdentifier("img" + (i+6), "id", name));
 
                         //UI thread started to allow setting of images
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 img.setImageBitmap(bmpimg);
+                                img1.setImageBitmap(bmpimg);
                             }
                         });
                         Thread.sleep(500);
