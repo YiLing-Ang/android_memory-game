@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView imageView = findViewById(i);
             imageView.setBackground(null);
         }
+        pickedImageViews.clear();
         sixImages.clear();
         findViewById(R.id.btnSubmit).setEnabled(false);
     }
