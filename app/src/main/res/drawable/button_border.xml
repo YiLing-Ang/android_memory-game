@@ -10,7 +10,7 @@
         android:width="2dp"
         android:color="#C82222" >
     </stroke>
-    <padding android:left="2dp" android:top="2dp" android:right="2dp"
+    <padding android:left="2dp" android:top="2dp" android:right="3dp"
         android:bottom="2dp" android:cropToPadding="true"/>
     <corners
         android:radius="2dp"   >

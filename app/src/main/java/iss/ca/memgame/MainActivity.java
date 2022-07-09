@@ -1,5 +1,8 @@
 package iss.ca.memgame;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Thread bkgdThread;
     ArrayList<String> sixImages = new ArrayList<String>();
+    List<Integer> pickedImageViews = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String inputURL = "https://" + editText.getText().toString();
                 progressBar.setProgress(0);
+                clearSelection();
 
                 if (bkgdThread != null) {
                     bkgdThread.interrupt();
@@ -84,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 img.setImageResource(R.drawable.cross);
+                                img.setBackground(null);
                             }
                         });
                     }
@@ -117,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         img.setImageBitmap(bmpimg);
+                                        img.setBackground(null);
                                         progressBar.incrementProgressBy(1);
                                         progressText.setText("Downloading " + progressBar.getProgress() + " of 20 images");
                                         if (progressBar.getProgress()==20)
                                         {
-                                            btnSubmit.setEnabled(true);
                                             progressText.setText("Download complete");
                                         }
 
@@ -129,10 +135,7 @@ public class MainActivity extends AppCompatActivity {
                                             img.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    img.setBackground(getResources().getDrawable(R.drawable.button_border));
-                                                    System.out.println("click success");
-                                                    System.out.println(sixImages.size());
-                                                    sixImages.add(url.toString());
+                                                    imageSelect(url, img.getId());
                                                 }
                                             });
                                         }
@@ -168,4 +171,50 @@ public class MainActivity extends AppCompatActivity {
         startService(intentMusic);
     }
 
+    protected void imageSelect(URL url, int id)
+    {
+        Resources r = getResources();
+        String name = getPackageName();
+        ImageView imageView = findViewById(id);
+
+        if (sixImages.size()<6) {
+            System.out.println("click success");
+            System.out.println(sixImages.size());
+            sixImages.add(url.toString());
+            pickedImageViews.add(id);
+            imageView.setBackground(getResources().getDrawable(R.drawable.button_border));
+            if (sixImages.size()==6)
+            {
+                findViewById(R.id.btnSubmit).setEnabled(true);
+            }
+        }
+
+        else
+        {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Only 6 images may be selected.")
+                    .setMessage("Would you like to reset your selection?")
+
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            clearSelection();
+                        }
+                    })
+
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+    }
+
+    protected void clearSelection()
+    {
+        for (Integer i: pickedImageViews)
+        {
+            ImageView imageView = findViewById(i);
+            imageView.setBackground(null);
+        }
+        sixImages.clear();
+        findViewById(R.id.btnSubmit).setEnabled(false);
+    }
 }
