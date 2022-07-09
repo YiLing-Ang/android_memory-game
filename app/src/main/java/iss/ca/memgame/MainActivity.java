@@ -131,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
                                             public void onClick(View view) {
                                                 if (sixImages.size() == 6) {
                                                     System.out.println("start intent");
+
                                                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
+
                                                     intent.putExtra("imgList", sixImages);
                                                     startActivity(intent);
 
@@ -166,6 +168,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public static String convertBitmapToString (Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return result;
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
