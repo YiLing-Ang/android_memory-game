@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
+import java.io.*;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
