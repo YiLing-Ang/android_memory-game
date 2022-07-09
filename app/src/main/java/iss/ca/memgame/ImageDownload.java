@@ -25,9 +25,11 @@ public class ImageDownload {
             InputStream in = httpConn.getInputStream();
 
             //converted to bitmap
-            return BitmapFactory.decodeStream(in);
+            Bitmap bmpimg = BitmapFactory.decodeStream(in);
+            return bmpimg;
         }
-        catch (MalformedURLException e)
+        catch (
+                MalformedURLException e)
         {
             e.printStackTrace();
         }
