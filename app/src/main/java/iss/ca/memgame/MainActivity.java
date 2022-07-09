@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                             img.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-
+                                                    img.setImageResource(R.drawable.tick);
                                                     System.out.println("click success");
                                                     System.out.println(sixImages.size());
                                                     sixImages.add(url.toString());
