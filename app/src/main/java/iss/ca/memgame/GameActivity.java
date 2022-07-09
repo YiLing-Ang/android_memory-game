@@ -37,64 +37,64 @@ public class GameActivity extends AppCompatActivity {
     int seconds = 0;
     boolean running;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-
-        running=true;
-        runTimer();
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_game);
 //
-//        btn = findViewById(R.id.finishBtn);
+//        running=true;
+//        runTimer();
+////
+////        btn = findViewById(R.id.finishBtn);
+////
+////        btn.setOnClickListener(new View.OnClickListener() {
+////
+////            @Override
+////            public void onClick(View view) {
+////
+////                running = false;
+////                seconds = 0;
+////                finish();
+////            }
+////        });
 //
-//        btn.setOnClickListener(new View.OnClickListener() {
+//        System.out.println("start memory game");
+//        Intent intent = getIntent();
+//        Resources r = getResources();
+//        String name = getPackageName();
+//        List<String> imgList = (List<String>) getIntent().getSerializableExtra("imgList");
 //
+//        new Thread(new Runnable() {
 //            @Override
-//            public void onClick(View view) {
+//            public void run() {
+//                try {
+//                    //loop through list of image URLs and setting bitmap images to ImageView in layout grid
+//                    for (int i = 1; i <= 6; i++) {
 //
-//                running = false;
-//                seconds = 0;
-//                finish();
+//                        //converted to bitmap
+//                        Bitmap bmpimg = ImageDownload.downloadImg(imgList, i);
+//
+//                        //taking advantage of simple naming convention of ImageView to allow for looping
+//                        ImageView img = findViewById(r.getIdentifier("img" + i, "id", name));
+//                        ImageView img1 = findViewById(r.getIdentifier("img" + (i+6), "id", name));
+//
+//                        //UI thread started to allow setting of images
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                img.setImageBitmap(bmpimg);
+//                                img1.setImageBitmap(bmpimg);
+//                            }
+//                        });
+//                    }
+//                }
+//                catch (Exception e)
+//                {
+//                    e.printStackTrace();
+//                }
 //            }
-//        });
-
-        System.out.println("start memory game");
-        Intent intent = getIntent();
-        Resources r = getResources();
-        String name = getPackageName();
-        List<String> imgList = (List<String>) getIntent().getSerializableExtra("imgList");
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //loop through list of image URLs and setting bitmap images to ImageView in layout grid
-                    for (int i = 1; i <= 6; i++) {
-
-                        //converted to bitmap
-                        Bitmap bmpimg = ImageDownload.downloadImg(imgList, i);
-
-                        //taking advantage of simple naming convention of ImageView to allow for looping
-                        ImageView img = findViewById(r.getIdentifier("img" + i, "id", name));
-                        ImageView img1 = findViewById(r.getIdentifier("img" + (i+6), "id", name));
-
-                        //UI thread started to allow setting of images
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                img.setImageBitmap(bmpimg);
-                                img1.setImageBitmap(bmpimg);
-                            }
-                        });
-                    }
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
+//        }).start();
+//    }
 
     TextView tv_p1, tv_p2,txtNumOfMatches;
 
