@@ -24,7 +24,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        System.out.println("start memory game");
         Intent intent = getIntent();
         Resources r = getResources();
         String name = getPackageName();

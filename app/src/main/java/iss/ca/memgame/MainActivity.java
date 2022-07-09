@@ -40,7 +40,9 @@ import java.util.stream.Collectors;
 public class MainActivity extends AppCompatActivity {
 
     private Thread bkgdThread;
+    //store selected image's link
     ArrayList<String> sixImages = new ArrayList<String>();
+    //store selected ImageView IDs
     List<Integer> pickedImageViews = new ArrayList<Integer>();
 
     @Override
@@ -51,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Resources r = getResources();
         String name = getPackageName();
 
-        Button btnSubmit = findViewById(R.id.btnSubmit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (sixImages.size() == 6) {
@@ -68,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button fetch_btn = findViewById(R.id.btnFetch);
-        fetch_btn.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnFetch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText editText = findViewById(R.id.inputTxt);
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String inputURL = "https://" + editText.getText().toString();
                 progressBar.setProgress(0);
+                progressText.setText("Download starting..");
                 clearSelection();
 
                 if (bkgdThread != null) {
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 img.setImageResource(R.drawable.cross);
-                                img.setBackground(null);
                             }
                         });
                     }
@@ -112,46 +112,33 @@ public class MainActivity extends AppCompatActivity {
                                     return;
                                 URL url = new URL(urls.get(i - 1));
 
-                                //bitmap output
+                                //bitmap output from image link
                                 Bitmap bmpimg = ImageDownload.downloadImg(urls, i);
 
                                 //taking advantage of simple naming convention of ImageView to allow for looping
                                 ImageView img = findViewById(r.getIdentifier("image" + i, "id", name));
 
-                                //UI thread started to allow setting of images
+                                //UI thread started to allow setting of images and progress bar/text
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         img.setImageBitmap(bmpimg);
-                                        img.setBackground(null);
+                                        img.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                imageSelect(url, img.getId());
+                                            }
+                                        });
                                         progressBar.incrementProgressBy(1);
                                         progressText.setText("Downloading " + progressBar.getProgress() + " of 20 images");
                                         if (progressBar.getProgress()==20)
                                         {
                                             progressText.setText("Download complete");
                                         }
-
-                                        if (img != null) {
-                                            img.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    imageSelect(url, img.getId());
-                                                }
-                                            });
-                                        }
                                     }
                                 });
                                 Thread.sleep(500);
                             }
-                        }
-                        catch (
-                                MalformedURLException e)
-                        {
-                            e.printStackTrace();
-                        }
-                        catch (IOException e)
-                        {
-                            e.printStackTrace();
                         }
                         catch (Exception e)
                         {
@@ -173,16 +160,10 @@ public class MainActivity extends AppCompatActivity {
 
     protected void imageSelect(URL url, int id)
     {
-        Resources r = getResources();
-        String name = getPackageName();
-        ImageView imageView = findViewById(id);
-
         if (sixImages.size()<6) {
-            System.out.println("click success");
-            System.out.println(sixImages.size());
             sixImages.add(url.toString());
             pickedImageViews.add(id);
-            imageView.setBackground(getResources().getDrawable(R.drawable.button_border));
+            findViewById(id).setBackground(MainActivity.this.getDrawable(R.drawable.button_border));
             if (sixImages.size()==6)
             {
                 findViewById(R.id.btnSubmit).setEnabled(true);
@@ -196,11 +177,11 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage("Would you like to reset your selection?")
 
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
                             clearSelection();
                         }
                     })
-
                     .setNegativeButton(android.R.string.no, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
@@ -211,8 +192,7 @@ public class MainActivity extends AppCompatActivity {
     {
         for (Integer i: pickedImageViews)
         {
-            ImageView imageView = findViewById(i);
-            imageView.setBackground(null);
+            findViewById(i).setBackground(null);
         }
         pickedImageViews.clear();
         sixImages.clear();
