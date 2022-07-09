@@ -1,5 +1,6 @@
 package iss.ca.memgame;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
         Resources r = getResources();
         String name = getPackageName();
+
+        //instantiate music service
+        Intent intentMusic = new Intent(MainActivity.this, iss.ca.memgame.MusicService.class);
+        intentMusic.putExtra("class","main");
+        startService(intentMusic);
 
         fetch_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,5 +134,13 @@ public class MainActivity extends AppCompatActivity {
                 });bkgdThread.start();
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intentMusic = new Intent(MainActivity.this, iss.ca.memgame.MusicService.class);
+        intentMusic.putExtra("class","main");
+        startService(intentMusic);
     }
 }
