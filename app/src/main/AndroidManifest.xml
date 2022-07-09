@@ -16,10 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MemGame"
         tools:targetApi="31">
+        <activity
+            android:name=".GameActivity"
+            android:exported="false" />
+
         <service
             android:name=".MusicService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".MainActivity"
