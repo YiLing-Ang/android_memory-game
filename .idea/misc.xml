@@ -4,8 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/MonKo/Documents/GitHub/android_memory-game/app/src/main/res/drawable/button_border.xml" value="0.1" />
+        <entry key="..\:/Users/MonKo/Documents/GitHub/android_memory-game/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/MonKo/Documents/GitHub/android_memory-game/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/MonKo/Documents/GitHub/android_memory-game/app/src/main/res/layout/activity_game.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MonKo/Documents/GitHub/android_memory-game/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/MonKo/Documents/GitHub/android_memory-game/app/src/main/res/layout/images.xml" value="0.203125" />
+        <entry key="..\:/Users/MonKo/Documents/GitHub/android_memory-game/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/Public/Documents/MemGame/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/chuzi/AndroidStudioProjects/android_memory-game/app/src/main/res/layout/activity_game.xml" value="0.184375" />
         <entry key="..\:/Users/chuzi/AndroidStudioProjects/android_memory-game/app/src/main/res/layout/activity_main.xml" value="0.121875" />
