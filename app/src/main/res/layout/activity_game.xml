@@ -130,4 +130,11 @@
 
             android:padding="10dp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/finishBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finish"/>
+
 </LinearLayout>
