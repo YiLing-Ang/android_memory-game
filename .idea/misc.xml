@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ang/Desktop/NUS/Mobile Application/android_memory-game/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/Ang/Desktop/NUS/Mobile Application/android_memory-game/app/src/main/res/layout/activity_memory_game.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/Public/Documents/MemGame/app/src/main/res/drawable/button_border.xml" value="0.187" />
+        <entry key="..\:/Users/Public/Documents/MemGame/app/src/main/res/layout/activity_game.xml" value="0.1796875" />
         <entry key="..\:/Users/Public/Documents/MemGame/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Public/Documents/MemGame/app/src/main/res/layout/activity_memory_game.xml" value="0.1796875" />
       </map>
     </option>
   </component>

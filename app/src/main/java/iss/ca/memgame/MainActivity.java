@@ -37,19 +37,34 @@ import java.util.stream.Collectors;
 public class MainActivity extends AppCompatActivity {
 
     private Thread bkgdThread;
-    InputStream in = null;
     ArrayList<String> sixImages = new ArrayList<String>();
-    Button btnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button fetch_btn = findViewById(R.id.btnFetch);
 
         Resources r = getResources();
         String name = getPackageName();
 
+        Button btnSubmit = findViewById(R.id.btnSubmit);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sixImages.size() == 6) {
+                    System.out.println("start intent");
+
+                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
+
+                    intent.putExtra("imgList", sixImages);
+                    startActivity(intent);
+
+                    System.out.println("intent okay");
+                }
+            }
+        });
+
+        Button fetch_btn = findViewById(R.id.btnFetch);
         fetch_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,15 +105,9 @@ public class MainActivity extends AppCompatActivity {
                                 if (Thread.interrupted())
                                     return;
                                 URL url = new URL(urls.get(i - 1));
-                                URLConnection urlConn = url.openConnection();
-                                HttpURLConnection httpConn = (HttpURLConnection) urlConn;
-                                httpConn.connect();
 
-                                //raw data from image URL
-                                in = httpConn.getInputStream();
-
-                                //converted to bitmap
-                                Bitmap bmpimg = BitmapFactory.decodeStream(in);
+                                //bitmap output
+                                Bitmap bmpimg = ImageDownload.downloadImg(urls, i);
 
                                 //taking advantage of simple naming convention of ImageView to allow for looping
                                 ImageView img = findViewById(r.getIdentifier("image" + i, "id", name));
@@ -110,45 +119,27 @@ public class MainActivity extends AppCompatActivity {
                                         img.setImageBitmap(bmpimg);
                                         progressBar.incrementProgressBy(1);
                                         progressText.setText("Downloading " + progressBar.getProgress() + " of 20 images");
+                                        if (progressBar.getProgress()==20)
+                                        {
+                                            btnSubmit.setEnabled(true);
+                                            progressText.setText("Download complete");
+                                        }
 
                                         if (img != null) {
                                             img.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    img.setImageResource(R.drawable.tick);
+                                                    img.setBackground(getResources().getDrawable(R.drawable.button_border));
                                                     System.out.println("click success");
                                                     System.out.println(sixImages.size());
                                                     sixImages.add(url.toString());
-
                                                 }
                                             });
                                         }
-
-                                        btnSubmit = findViewById(R.id.btnSubmit);
-
-                                        btnSubmit.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                if (sixImages.size() == 6) {
-                                                    System.out.println("start intent");
-
-                                                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
-
-                                                    intent.putExtra("imgList", sixImages);
-                                                    startActivity(intent);
-
-                                                    System.out.println("intent okay");
-                                                }
-                                            }
-                                        });
                                     }
                                 });
                                 Thread.sleep(500);
                             }
-                            progressText.setText("Download complete");
-
-
-
                         }
                         catch (
                                 MalformedURLException e)
@@ -167,14 +158,6 @@ public class MainActivity extends AppCompatActivity {
                 });bkgdThread.start();
             }
         });
-    }
-
-    public static String convertBitmapToString (Bitmap bitmap){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        return result;
     }
 
     @Override
