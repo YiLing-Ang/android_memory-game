@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -257,6 +258,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(firstCard==secondCard){
             checkMatch(clickedFirst);
             checkMatch(clickedSecond);
+
+            MediaPlayer correctSound = MediaPlayer.create(GameActivity.this, R.raw.correct);
+            correctSound.start();
 
             //add points to the correct player
             if(turn==1){

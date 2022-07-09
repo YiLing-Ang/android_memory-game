@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //start bgm
+        Intent intentMusic = new Intent(MainActivity.this, iss.ca.memgame.MusicService.class);
+        intentMusic.putExtra("class","main");
+        startService(intentMusic);
+
         findViewById(R.id.btnFetch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

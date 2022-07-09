@@ -71,7 +71,10 @@
             layout="@layout/images"
             android:layout_width="wrap_content"
             android:layout_height="400dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="148dp" />
 
 </RelativeLayout>
