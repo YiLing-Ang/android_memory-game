@@ -55,6 +55,7 @@ public class GameActivity extends AppCompatActivity {
     int playerPoints = 0, cpuPoints = 0;
     int totalPoints = playerPoints+cpuPoints;
 
+    public Bitmap dlimg1, dlimg2, dlimg3, dlimg4, dlimg5, dlimg6;
     InputStream in = null;
     private Thread bkgdThread;
     @Override
@@ -66,47 +67,63 @@ public class GameActivity extends AppCompatActivity {
         running=true;
         runTimer();
 
-
         System.out.println("start memory game");
         Intent intent = getIntent();
         Resources r = getResources();
         String name = getPackageName();
         List<String> imgList = (List<String>) getIntent().getSerializableExtra("imgList");
 
-        new Thread(new Runnable() {
+        bkgdThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     //loop through list of image URLs and setting bitmap images to ImageView in layout grid
                     for (int i = 1; i <= 6; i++) {
+                        if (Thread.interrupted())
+                            return;
+                        URL url = new URL(imgList.get(i - 1));
+                        URLConnection urlConn = url.openConnection();
+                        HttpURLConnection httpConn = (HttpURLConnection) urlConn;
+                        httpConn.connect();
 
-                        //converted to bitmap
-                        Bitmap bmpimg = ImageDownload.downloadImg(imgList, i);
+                        //raw data from image URL
+                        in = httpConn.getInputStream();
+                        switch (i){
+                            case 1:dlimg1 = BitmapFactory.decodeStream(in);
+                                break;
+                            case 2:dlimg2 = BitmapFactory.decodeStream(in);
+                                break;
+                            case 3:dlimg3 = BitmapFactory.decodeStream(in);
+                                break;
+                            case 4:dlimg4 = BitmapFactory.decodeStream(in);
+                                break;
+                            case 5:dlimg5 = BitmapFactory.decodeStream(in);
+                                break;
+                            case 6:dlimg6 = BitmapFactory.decodeStream(in);
+                                break;
+                        }
 
-                        //taking advantage of simple naming convention of ImageView to allow for looping
-                        ImageView img = findViewById(r.getIdentifier("img" + i, "id", name));
-                        ImageView img1 = findViewById(r.getIdentifier("img" + (i+6), "id", name));
-
-                        //UI thread started to allow setting of images
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                img.setImageBitmap(bmpimg);
-                                img1.setImageBitmap(bmpimg);
-                            }
-                        });
+ /*                       Thread.sleep(100);*/
                     }
+                }
+                catch (
+                        MalformedURLException e)
+                {
+                    e.printStackTrace();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
                 }
                 catch (Exception e)
                 {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });bkgdThread.start();
 
 
-
-        ArrayList<String> numbersList = (ArrayList<String>) getIntent().getSerializableExtra("imgList");
+        /*ArrayList<String> numbersList = (ArrayList<String>) getIntent().getSerializableExtra("imgList");
         if (bkgdThread != null) {
             bkgdThread.interrupt();
             for(int i=1; i<=12; i++)
@@ -168,7 +185,7 @@ public class GameActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });bkgdThread.start();
+        });bkgdThread.start();*/
 
         tv_p1 = (TextView) findViewById(R.id.tv_p1);
         tv_p2 = (TextView) findViewById(R.id.tv_p2);
@@ -318,32 +335,40 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
+
+
     private void doStuff(ImageView iv, int card) {
         //set the correct image to the imageview
         if (cardsArray[card] == 101) {
-            iv.setImageResource(image101);
+            if (dlimg1 != null) {
+                System.out.println("success");
+            }
+            else {
+                System.out.println("fail");
+            }
+            iv.setImageBitmap(dlimg1);
         } else if (cardsArray[card] == 102) {
-            iv.setImageResource(image102);
+            iv.setImageBitmap(dlimg2);
         } else if (cardsArray[card] == 103) {
-            iv.setImageResource(image103);
+            iv.setImageBitmap(dlimg3);
         } else if (cardsArray[card] == 104) {
-            iv.setImageResource(image104);
+            iv.setImageBitmap(dlimg4);
         } else if (cardsArray[card] == 105) {
-            iv.setImageResource(image105);
+            iv.setImageBitmap(dlimg5);
         } else if (cardsArray[card] == 106) {
-            iv.setImageResource(image106);
+            iv.setImageBitmap(dlimg6);
         } else if (cardsArray[card] == 201) {
-            iv.setImageResource(image201);
+            iv.setImageBitmap(dlimg1);
         } else if (cardsArray[card] == 202) {
-            iv.setImageResource(image202);
+            iv.setImageBitmap(dlimg2);
         } else if (cardsArray[card] == 203) {
-            iv.setImageResource(image203);
+            iv.setImageBitmap(dlimg3);
         } else if (cardsArray[card] == 204) {
-            iv.setImageResource(image204);
+            iv.setImageBitmap(dlimg4);
         } else if (cardsArray[card] == 205) {
-            iv.setImageResource(image205);
+            iv.setImageBitmap(dlimg5);
         } else if (cardsArray[card] == 206) {
-            iv.setImageResource(image206);
+            iv.setImageBitmap(dlimg6);
         }
 
         //check which image is selected and save it to temporary variable
@@ -471,7 +496,6 @@ public class GameActivity extends AppCompatActivity {
             img10.setImageResource(R.drawable.back);
             img11.setImageResource(R.drawable.back);
             img12.setImageResource(R.drawable.back);
-
             //change the player turn
             if(turn ==1){
                 turn=2;
