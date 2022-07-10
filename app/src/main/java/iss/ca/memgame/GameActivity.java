@@ -321,7 +321,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
-
                         }
                     });
             AlertDialog alertDialog = alertDialogBuilder.create();
