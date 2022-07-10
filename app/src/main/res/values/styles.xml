@@ -2,8 +2,8 @@
 <resources>
     <style name="MainActivity_Image">
         <item name="android:src">@drawable/cross</item>
-        <item name="android:layout_width">85dp</item>
-        <item name="android:layout_height">85dp</item>
+        <item name="android:layout_width">87dp</item>
+        <item name="android:layout_height">87dp</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:cropToPadding">true</item>
     </style>

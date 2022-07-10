@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                             //loop through list of image URLs and setting bitmap images to ImageView in layout grid
                             for (int i = 1; i <= 20; i++) {
-                                if (Thread.interrupted())
+                                if (bkgdThread.interrupted())
                                     return;
                                 URL url = new URL(urls.get(i - 1));
 
