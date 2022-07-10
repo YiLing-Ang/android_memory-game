@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         Resources r = getResources();
         String name = getPackageName();
 
+        //music initiate
+        Intent intentMusic = new Intent(MainActivity.this, iss.ca.memgame.MusicService.class);
+        intentMusic.putExtra("class","main");
+        startService(intentMusic);
+
         findViewById(R.id.btnSubmit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

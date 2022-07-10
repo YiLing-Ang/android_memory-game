@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -83,7 +84,7 @@ public class GameActivity extends AppCompatActivity{
             @Override
             public void run() {
                 try {
-                    //loop through list of image URLs and setting bitmap images to ImageView in layout grid
+                    //loop through list of image URLs and setting to array
                     for (int i = 1; i <= 6; i++) {
                         bitmapArray[i-1] = ImageDownload.downloadImg(imgList, i);
                     }
@@ -91,8 +92,11 @@ public class GameActivity extends AppCompatActivity{
                         @Override
                         public void run() {
                             for(int i=1; i<=12; i++){
+                                //looping through 12 ImageViews
                                 ImageView img = findViewById(r.getIdentifier("img" + i, "id", name));
+                                //setting tags to each ImageView for matching verification purposes
                                 img.setTag(String.valueOf(i-1));
+                                //assigning to array for easier manipulation
                                 imgViews[i-1]=img;
                                 img.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -127,8 +131,8 @@ public class GameActivity extends AppCompatActivity{
         }
 
         else if (cardNumber == 2) {
-            secondCardImg = card_i;
             cardNumber = 1;
+            secondCardImg = card_i;
             secondCardTag = tag;
 
             //disables all unmatched cards before calculate() runs
@@ -152,6 +156,10 @@ public class GameActivity extends AppCompatActivity{
         if(firstCardImg == secondCardImg){
             matchedFollowUp(firstCardTag);
             matchedFollowUp(secondCardTag);
+
+            //plays specific sound on correct match
+            MediaPlayer correctSound = MediaPlayer.create(GameActivity.this, R.raw.correct);
+            correctSound.start();
 
             //add points to the correct player
             if(turn==1){
