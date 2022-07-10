@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     ImageView img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12;
     ImageView[] imgViews = new ImageView[12];
+    ImageView[] matchedImg = new ImageView[12];
 
     //array for images
     Integer[] cardsArray = {101, 102, 103, 104, 105, 106, 201, 202, 203, 204, 205, 206};
@@ -269,10 +270,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 totalPoints++;
                 txtNumOfMatches.setText(totalPoints+" out of 6 matches");
             }
-
         }else{
             for(int i = 0; i < imgViews.length; i++){
-                imgViews[i].setImageResource(R.drawable.back);
+                if(matchedImg[i] == null)
+                {
+                    imgViews[i].setImageResource(R.drawable.back);
+                }
             }
 
             //change the player turn
@@ -296,18 +299,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkEnd(){
-        if(img1.getVisibility()==View.INVISIBLE &&
-                img2.getVisibility()==View.INVISIBLE &&
-                img3.getVisibility()==View.INVISIBLE &&
-                img4.getVisibility()==View.INVISIBLE &&
-                img5.getVisibility()==View.INVISIBLE &&
-                img6.getVisibility()==View.INVISIBLE &&
-                img7.getVisibility()==View.INVISIBLE &&
-                img8.getVisibility()==View.INVISIBLE &&
-                img9.getVisibility()==View.INVISIBLE &&
-                img10.getVisibility()==View.INVISIBLE &&
-                img11.getVisibility()==View.INVISIBLE &&
-                img12.getVisibility()==View.INVISIBLE){
+        if(!img1.isClickable() &&
+                !img2.isClickable() &&
+                !img3.isClickable() &&
+                !img4.isClickable() &&
+                !img5.isClickable() &&
+                !img6.isClickable() &&
+                !img7.isClickable() &&
+                !img8.isClickable() &&
+                !img9.isClickable() &&
+                !img10.isClickable() &&
+                !img11.isClickable() &&
+                !img12.isClickable()){
 
             running = false;
 
@@ -414,40 +417,52 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void checkMatch(int i){
         switch(i){
             case 0:
-                img1.setVisibility(View.INVISIBLE);
+                img1.setClickable(false);
+                matchedImg[0] = img1;
                 break;
             case 1:
-                img2.setVisibility(View.INVISIBLE);
+                img2.setClickable(false);
+                matchedImg[1] = img2;
                 break;
             case 2:
-                img3.setVisibility(View.INVISIBLE);
+                img3.setClickable(false);
+                matchedImg[2] = img3;
                 break;
             case 3:
-                img4.setVisibility(View.INVISIBLE);
+                img4.setClickable(false);
+                matchedImg[3] = img4;
                 break;
             case 4:
-                img5.setVisibility(View.INVISIBLE);
+                img5.setClickable(false);
+                matchedImg[4] = img5;
                 break;
             case 5:
-                img6.setVisibility(View.INVISIBLE);
+                img6.setClickable(false);
+                matchedImg[5] = img6;
                 break;
             case 6:
-                img7.setVisibility(View.INVISIBLE);
+                img7.setClickable(false);
+                matchedImg[6] = img7;
                 break;
             case 7:
-                img8.setVisibility(View.INVISIBLE);
+                img8.setClickable(false);
+                matchedImg[7] = img8;
                 break;
             case 8:
-                img9.setVisibility(View.INVISIBLE);
+                img9.setClickable(false);
+                matchedImg[8] = img9;
                 break;
             case 9:
-                img10.setVisibility(View.INVISIBLE);
+                img10.setClickable(false);
+                matchedImg[9] = img10;
                 break;
             case 10:
-                img11.setVisibility(View.INVISIBLE);
+                img11.setClickable(false);
+                matchedImg[10] = img11;
                 break;
             case 11:
-                img12.setVisibility(View.INVISIBLE);
+                img12.setClickable(false);
+                matchedImg[11] = img12;
                 break;
         }
     }
